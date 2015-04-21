@@ -1,0 +1,38 @@
+<!-- Project 4 -->
+<!-- Hunter Dubel and Jeremy Leon-->
+
+<project name="build" default="compile">
+	<target name="compile" depends="clean">
+		<javac srcdir="."/>
+	</target>
+
+	<target name="clean">
+		<delete includeemptydirs = "true" quiet = "true" >
+			<fileset dir="." includes="*.inp,**/*.class,,**/*.txt"/>
+			<fileset dir="META-INF" includes = "**,*.*~"/>
+		</delete>
+	</target>
+
+	<target name="jar">
+		<jar destfile="project4.jar">
+			<fileset dir="." includes = "*.java, *.xml, edu/**, jsjf/**" excludes="**/*.class,*.txt,*.*~," />
+		</jar>	
+	</target>
+
+	<target name="authors">
+		<echo message="Hunter Dubel and Jeremy Leon"/>
+	</target>
+
+	<target name="download">
+		<get src="http://s3.amazonaws.com/depasquale/datasets/access_log" dest="access_log.inp"/>
+	</target> 
+
+	<target name="run" depends="authors, compile, download">
+		<java fork="yes" classname="edu.tcnj.csc250.Driver">
+			<classpath>
+				<path location="."/>
+			</classpath>
+		</java >	
+	</target>
+
+</project>
